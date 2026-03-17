@@ -1,0 +1,25 @@
+name: LagBuster
+main: com.broja.novaannouncer.LagBusterPlugin
+version: 1.0.0
+api-version: 1.20
+description: "Automated lag cleanup and lightweight TPS reporting."
+authors:
+  - broja
+
+commands:
+  lagclear:
+    description: Clears dropped items (and optionally mobs) to reduce lag.
+    usage: /<command> [drops|mobs|all]
+    permission: lagbuster.clear
+  tps:
+    description: Shows recent server TPS.
+    usage: /<command>
+    permission: lagbuster.tps
+
+permissions:
+  lagbuster.clear:
+    default: true
+    description: Allows a player to run /lagclear
+  lagbuster.tps:
+    default: true
+    description: Allows a player to run /tps

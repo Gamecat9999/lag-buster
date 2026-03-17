@@ -1,0 +1,17 @@
+# LagBuster configuration
+# All times are in server ticks (20 ticks = 1 second).
+
+# How often the plugin will auto-clear dropped items (in ticks).
+# Set to 0 to disable auto-clearing.
+clearIntervalTicks: 6000
+
+# Maximum number of dropped item entities allowed before clear is triggered.
+# If the number of dropped items is above this threshold, they will be cleared.
+maxDroppedItems: 120
+
+# Whether to also clear passive mobs (e.g., animals) when /lagclear all is used.
+# This does not run automatically.
+clearMobsWithAll: true
+
+# Log extra debug info to the server log.
+debug: false

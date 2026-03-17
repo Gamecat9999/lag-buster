@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LagBuster (Minecraft Plugin) — Wiki</title>
+  <style>
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #0d1117; color: #c9d1d9; }
+    header { padding: 2rem 1.5rem; background: #161b22; border-bottom: 1px solid #30363d; }
+    h1 { margin: 0; font-size: 2.2rem; }
+    main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; }
+    h2 { border-bottom: 1px solid #30363d; padding-bottom: 0.25rem; }
+    code, pre { background: rgba(110,118,129,0.2); padding: 0.15rem 0.4rem; border-radius: 4px; font-family: ui-monospace, SFMono-Regular, "Segoe UI Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    pre { padding: 1rem; overflow-x: auto; }
+    a { color: #58a6ff; }
+    ul { padding-left: 1.1rem; }
+    section + section { margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LagBuster Plugin — Setup &amp; Guide</h1>
+    <p>A minimal, lightweight Minecraft Spigot/Bukkit plugin to help reduce lag by auto-cleaning dropped items and providing TPS checks.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. What LagBuster Does</h2>
+      <ul>
+        <li>Automatically checks dropped items on a periodic schedule and clears them when a configured threshold is reached.</li>
+        <li>Provides a `/lagclear` command to manually clear dropped items and/or passive mobs.</li>
+        <li>Provides a `/tps` command that reports recent server TPS (if available on your server build).</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>2. Installation</h2>
+      <ol>
+        <li>Build the plugin with Maven: <code>mvn package</code>.</li>
+        <li>Copy the generated JAR from <code>target/novaannouncer-1.0.0.jar</code> to your server's <code>plugins/</code> folder.</li>
+        <li>Start or restart your server.</li>
+        <li>On first run, LagBuster will create a config file at <code>plugins/LagBuster/config.yml</code>.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>3. Configuration</h2>
+      <p>The config file is located at:</p>
+      <pre>plugins/LagBuster/config.yml</pre>
+      <p>By default, it contains:</p>
+      <pre># LagBuster configuration
+# All times are in server ticks (20 ticks = 1 second).
+
+# How often the plugin will auto-clear dropped items (in ticks).
+# Set to 0 to disable auto-clearing.
+clearIntervalTicks: 6000
+
+# Maximum number of dropped item entities allowed before clear is triggered.
+# If the number of dropped items is above this threshold, they will be cleared.
+maxDroppedItems: 120
+
+# Whether to also clear passive mobs (e.g., animals) when /lagclear all is used.
+# This does not run automatically.
+clearMobsWithAll: true
+
+# Log extra debug info to the server log.
+debug: false
+</pre>
+      <ul>
+        <li><strong>clearIntervalTicks</strong> — how often the plugin checks item counts (20 ticks = 1 second).</li>
+        <li><strong>maxDroppedItems</strong> — threshold that triggers an immediate cleanup when reached.</li>
+        <li><strong>clearMobsWithAll</strong> — controls whether <code>/lagclear all</code> also clears passive mobs.</li>
+        <li><strong>debug</strong> — when true, the plugin logs extra info to the console.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>4. Commands</h2>
+      <ul>
+        <li><code>/lagclear</code> — clears dropped items (default).</li>
+        <li><code>/lagclear drops</code> — same as <code>/lagclear</code>.</li>
+        <li><code>/lagclear mobs</code> — clears passive mobs (animals, villagers, etc.).</li>
+        <li><code>/lagclear all</code> — clears drops and, if enabled, passive mobs.</li>
+        <li><code>/tps</code> — shows recent server TPS (1m/5m/15m, if supported).</li>
+      </ul>
+
+      <p>Permissions:</p>
+      <ul>
+        <li><code>lagbuster.clear</code> — required to run <code>/lagclear</code>.</li>
+        <li><code>lagbuster.tps</code> — required to run <code>/tps</code>.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. Notes</h2>
+      <ul>
+        <li>If your server implementation does not expose TPS via the Bukkit API, the <code>/tps</code> command will report that it’s unavailable.</li>
+        <li>Clearing mobs can remove passive entities like cows, chickens, and villagers. Use <code>/lagclear all</code> carefully on live servers.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>6. Extending LagBuster</h2>
+      <p>Want extra features? Some ideas that pair well with LagBuster:</p>
+      <ul>
+        <li>Auto-clear based on TPS rather than just item count.</li>
+        <li>Per-world/region whitelist or blacklist for clearing.</li>
+        <li>Configurable entity type lists for <code>/lagclear mobs</code>.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
